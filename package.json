@@ -1,0 +1,19 @@
+{
+  "name": "angular-theme",
+  "version": "0.0.0",
+  "description": "Dynamic style and layout switching using Angular",
+  "main": "theme.module.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jtormey/angular-theme.git"
+  },
+  "author": "Justin Tormey <jrtormey@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jtormey/angular-theme/issues"
+  },
+  "homepage": "https://github.com/jtormey/angular-theme#readme"
+}
