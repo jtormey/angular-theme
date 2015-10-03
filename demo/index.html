@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html ng-app="demoApp">
+  <head>
+    <meta charset="utf-8">
+    <title>angular-theme</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
+    <script src="../dist/angular-theme.min.js"></script>
+    <script src="demo.js"></script>
+
+    <link rel="stylesheet" href="css/red.css" ng-theme="red" default>
+    <link rel="stylesheet" href="css/blue.css" ng-theme="blue">
+  </head>
+  <body ng-controller="DemoController">
+    <select ng-model="theme" ng-options="t for t in themes track by t"></select>
+  </body>
+</html>
