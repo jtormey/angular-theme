@@ -3,8 +3,37 @@
   <head>
     <meta charset="utf-8">
     <title>angular-theme</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
   </head>
   <body>
-    angular-theme
+    <div class="container">
+      <div class="main col-md-8 col-md-offset-2">
+        <h1>Angular Theme</h1>
+        <p class="lead">
+          Dynamic style and layout switching, powered by Angular.
+        </p>
+        <h2>Loading styles</h2>
+        <pre>
+&lt;head&gt;
+  &lt;link href=&quot;/basic.css&quot; ng-theme=&quot;basic&quot; default /&gt;
+  &lt;link href=&quot;/dark.css&quot; ng-theme=&quot;dark&quot; /&gt;
+&lt;/head&gt;</pre>
+        <h3>Attributes</h3>
+        <ul>
+          <li><code>ng-theme="theme-name"</code> - name used to switch themes</li>
+          <li><code>default</code> - sets the default theme</li>
+        </ul>
+        <h2>Usage</h2>
+        <pre>
+angular.controller('MyController', function($scope, $theme) {
+  $scope.theme = $theme.activeTheme;
+  $scope.$watch('theme', $theme.setTheme);
+});</pre>
+        <p>
+          Change themes by calling <code>$theme.setTheme('theme-name');</code>.
+        </p>
+      </div>
+    </div>
   </body>
 </html>
