@@ -1,13 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="demoApp">
   <head>
     <meta charset="utf-8">
     <title>angular-theme</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+    <script src="js/angular-theme.min.js" charset="utf-8"></script>
+    <script src="js/app.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="css/light.theme.css" ng-theme="light" default>
+    <link rel="stylesheet" href="css/dark.theme.css" ng-theme="dark">
   </head>
   <body>
-    <div class="container">
+    <div class="container wrapper">
       <div class="main col-md-8 col-md-offset-2">
         <h1>Angular Theme</h1>
         <p class="lead">
@@ -33,6 +38,21 @@ angular.controller('MyController', function($scope, $theme) {
         <p>
           Change themes by calling <code>$theme.setTheme('theme-name');</code>.
         </p>
+        <div class="demo" ng-controller="DemoController">
+          <div class="col-md-12">
+            <h3>Welcome to my site!</h3>
+            <span>Fake contents:</span>
+            <ul>
+              <li>About</li>
+              <li>Blog</li>
+            </ul>
+            <span>Change the theme: </span>
+            <select
+              ng-model="theme"
+              ng-options="t for t in themes track by t">
+            </select>
+          </div>
+        </div>
       </div>
     </div>
   </body>
