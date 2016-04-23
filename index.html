@@ -21,7 +21,7 @@
         <h2>Loading styles</h2>
         <pre>
 &lt;head&gt;
-  &lt;link href=&quot;/basic.css&quot; ng-theme=&quot;basic&quot; default /&gt;
+  &lt;link href=&quot;/light.css&quot; ng-theme=&quot;light&quot; default /&gt;
   &lt;link href=&quot;/dark.css&quot; ng-theme=&quot;dark&quot; /&gt;
 &lt;/head&gt;</pre>
         <h3>Attributes</h3>
@@ -29,9 +29,16 @@
           <li><code>ng-theme="theme-name"</code> - name used to switch themes</li>
           <li><code>default</code> - sets the default theme</li>
         </ul>
-        <h2>Usage</h2>
+        <h2>Programmatic Usage</h2>
+        <h3>$themeProvider</h3>
         <pre>
-angular.controller('MyController', function($scope, $theme) {
+angular.module('my.app', ['angular.theme']).config(function ($themeProvider) {
+  // optionally set the initial theme, will override default theme
+  $themeProvider.setInitialTheme('light');
+});</pre>
+        <h3>$theme</h3>
+        <pre>
+angular.module('my.app').controller('MyController', function ($scope, $theme) {
   $scope.theme = $theme.activeTheme;
   $scope.$watch('theme', $theme.setTheme);
 });</pre>
