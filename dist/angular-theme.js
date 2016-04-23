@@ -1,6 +1,6 @@
 /**
- * angular-theme v0.1.0
- * Thu Oct 01 2015 22:52:00 GMT-0400 (EDT)
+ * angular-theme v1.0.0
+ * Sat Apr 23 2016 15:42:37 GMT-0400 (EDT)
  * Justin Tormey <jrtormey@gmail.com>
  */
 
@@ -8,31 +8,35 @@
 "use strict";
 
 angular.module('angular.theme', []);
-angular.module('angular.theme').factory('$theme', $theme);
+angular.module('angular.theme').provider('$theme', ThemeProvider);
 
-$theme.$inject = [];
+function ThemeProvider() {
+  var initialTheme;
 
-function $theme() {
+  this.setInitialTheme = function (themeName) {
+    initialTheme = themeName;
+  };
+
+  this.$get = function themeFactory() {
+    return new Theme(initialTheme);
+  };
+}
+
+function Theme(initialTheme) {
   var service = {
     themes: [],
-    activeTheme: undefined,
+    activeTheme: initialTheme,
     addTheme: addTheme,
     setTheme: setTheme
   };
   return service;
 
-  function addTheme(themeName, setter) {
-    service.themes.unshift({ name: themeName, setDisabled: setter });
+  function addTheme(theme) {
+    if (! ~service.themes.indexOf(theme)) service.themes.unshift(theme);
   }
 
-  function setTheme(themeName) {
-    service.themes.forEach(function (theme) {
-      var match = theme.name === themeName;
-      if (match) {
-        service.activeTheme = theme.name;
-      }
-      theme.setDisabled(!match);
-    });
+  function setTheme(theme) {
+    if (!! ~service.themes.indexOf(theme)) service.activeTheme = theme;
   }
 }
 angular.module('angular.theme').directive('ngTheme', ngTheme);
@@ -50,18 +54,21 @@ function ngTheme($theme) {
   return directive;
 
   function link(scope, elem, attrs) {
+    if (elem[0].tagName !== 'LINK') return;
+
     var isDefault = attrs['default'] !== undefined;
 
-    setDisabled(!isDefault);
-    $theme.addTheme(scope.themeName, setDisabled);
+    $theme.addTheme(scope.themeName);
 
-    if (isDefault) {
+    if (isDefault && $theme.activeTheme == null) {
       $theme.setTheme(scope.themeName);
     }
 
-    function setDisabled(state) {
-      elem[0].disabled = state;
-    }
+    scope.$watch(function () {
+      return $theme.activeTheme === scope.themeName;
+    }, function (isEnabled) {
+      elem[0].disabled = !isEnabled;
+    });
   }
 }
 }());
