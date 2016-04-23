@@ -15,6 +15,8 @@ function ngTheme($theme) {
   return directive;
 
   function link(scope, elem, attrs) {
+    if (elem[0].tagName !== 'LINK') return;
+
     var isDefault = (attrs.default !== undefined);
 
     $theme.addTheme(scope.themeName);
