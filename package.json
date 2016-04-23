@@ -4,7 +4,7 @@
   "description": "Dynamic style and layout switching using Angular",
   "main": "theme.module.js",
   "scripts": {
-    "test": "npm test",
+    "start": "node_modules/.bin/http-server .",
     "dist": "node_modules/gulp/bin/gulp.js dist"
   },
   "repository": {
@@ -26,6 +26,7 @@
     "gulp-iife": "^0.1.0",
     "gulp-rename": "^1.2.2",
     "gulp-uglify": "^1.4.1",
+    "http-server": "^0.9.0",
     "run-sequence": "^1.1.4"
   }
 }
