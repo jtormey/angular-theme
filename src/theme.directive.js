@@ -17,15 +17,16 @@ function ngTheme($theme) {
   function link(scope, elem, attrs) {
     var isDefault = (attrs.default !== undefined);
 
-    setDisabled(!isDefault);
-    $theme.addTheme(scope.themeName, setDisabled);
+    $theme.addTheme(scope.themeName);
 
-    if (isDefault) {
+    if (isDefault && $theme.activeTheme == null) {
       $theme.setTheme(scope.themeName);
     }
 
-    function setDisabled(state) {
-      elem[0].disabled = state;
-    }
+    scope.$watch(function () {
+      return $theme.activeTheme === scope.themeName;
+    }, function (isEnabled) {
+      elem[0].disabled = !isEnabled;
+    });
   }
 }

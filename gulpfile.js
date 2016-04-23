@@ -11,7 +11,7 @@ var pkg     = require('./package.json')
   , header  = require('gulp-header')
   , runSeq  = require('run-sequence');
 
-gulp.task('default', ['dist']);
+gulp.task('default', ['dist', 'watch']);
 
 gulp.task('dist', function() {
   runSeq('dist-clean', 'dist-file', 'dist-min');
@@ -62,4 +62,8 @@ gulp.task('dist-min', function() {
     .pipe(uglify())
     .pipe(rename(files.dist.min))
     .pipe(gulp.dest(files.dist.dir));
+});
+
+gulp.task('watch', function () {
+  gulp.watch(files.src.all, { cwd: files.src.dir }, ['dist']);
 });

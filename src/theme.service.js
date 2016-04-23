@@ -1,29 +1,33 @@
 angular
   .module('angular.theme')
-  .factory('$theme', $theme);
+  .provider('$theme', ThemeProvider);
 
-$theme.$inject = [];
+function ThemeProvider() {
+  var initialTheme;
 
-function $theme() {
+  this.setInitialTheme = function (themeName) {
+    initialTheme = themeName;
+  };
+
+  this.$get = function themeFactory() {
+    return new Theme(initialTheme);
+  };
+}
+
+function Theme(initialTheme) {
   var service = {
     themes: [],
-    activeTheme: undefined,
+    activeTheme: initialTheme,
     addTheme: addTheme,
     setTheme: setTheme
   };
   return service;
 
-  function addTheme(themeName, setter) {
-    service.themes.unshift({ name: themeName, setDisabled: setter });
+  function addTheme(theme) {
+    if (!~service.themes.indexOf(theme)) service.themes.unshift(theme);
   }
 
-  function setTheme(themeName) {
-    service.themes.forEach(function(theme) {
-      var match = (theme.name === themeName);
-      if (match) {
-        service.activeTheme = theme.name;
-      }
-      theme.setDisabled(!match);
-    });
+  function setTheme(theme) {
+    if (!!~service.themes.indexOf(theme)) service.activeTheme = theme;
   }
 }
